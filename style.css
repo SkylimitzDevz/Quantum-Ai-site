@@ -26,6 +26,10 @@ body{
 
 img{
     -webkit-user-drag: none;
+    /* make images responsive by default so they never overflow their containers */
+    max-width: 100%;
+    height: auto;
+    display: block; /* prevents inline whitespace and helps centering */
 }
 
 /* ---- styling ---- */
@@ -60,6 +64,10 @@ nav{
     height:50px;
     align-items: center;
     justify-content: space-between;
+}
+
+main{
+    padding: 0px 20px;
 }
 
 button{
@@ -120,14 +128,15 @@ header{
 
 .glow-circle{
     border-top: 50px solid var(--cyan);
-    height: 900px;
+    aspect-ratio: 1 / 1;
     width:100%;
     max-width: 900px;
     margin: auto;
     margin-top:100px;
     border-radius:100%;
     filter: blur(20px);
-    margin: 0px, 50px;
+    margin: 100px auto 0;
+    transition: all 0.3s ease;
 }
 
 .title{
@@ -137,7 +146,7 @@ header{
     display: flex;
     justify-content: center;
     /* transform: scale(0.7); */
-    width: 600px;
+    max-width: 600px;
     height: auto;
 }
 .title img{
@@ -168,7 +177,6 @@ header{
 }
 
 .sub-title{
-    /* position: absolute; */
     width: 100%;
     text-align: center;
     font-size: 15px;
@@ -177,9 +185,7 @@ header{
     margin-bottom: 30px;
 }
 
-.btn-container{
-    /* position: absolute; */
-    display: flex;
+.btn-container{    display: flex;
     gap:30px;
     margin: 10px;
 }
@@ -191,6 +197,12 @@ header{
     justify-content: center;
     align-items: center;
     width: 100%;
+    padding: 0 20px; /* Add horizontal padding */
+}
+
+.header-info h1 {
+    font-size: 40px;
+    transition: all 0.3s ease;
 }
 
 .head-btn{
@@ -202,6 +214,7 @@ header{
     color: var(--white);
     font-size: 15px;
     font-weight: 500;
+    transition: all 0.3s ease;
 }
 
 .head-btn:hover{
@@ -232,7 +245,7 @@ header{
     max-width: 1000px;
     width: 100%;
     margin: auto;
-    grid-template-rows: 200px 300px;
+    grid-template-rows: repeat(2, auto);
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 
@@ -253,20 +266,26 @@ header{
     background: linear-gradient(45deg, var(--gradient-blue), var(--gradient-purple));
     position: relative;
     line-height: 1.3;
+
 }
 
 .feature-container p{
     font-size: 18px;
+    transition: all 0.3s ease;
 }
 
 .feature-container h2{
     font-size: 25px;
+    transition: all 0.3s ease;
 }
 
 .banner-img{
-    width: 300px;
+    /* allow the banner image to scale down with container width */
+    max-width: 300px;
+    width: 100%;
     margin: 0px;
     margin: auto;
+    transition: all 0.3s ease;
 }
 
 #box-4{
@@ -280,11 +299,104 @@ main h1{
     background: linear-gradient(to top, var(--btn-color), var(--white));
     background-clip: text;
     color:transparent;
+    transition: all 0.3s ease;
 }
 
 .line-chart-img{
-    width: 250px;
+    /* similarly keep the chart image constrained to the screen */
+    max-width: 250px;
+    width: auto;
     position: absolute;
     right: 20px;
     bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    .glow-circle {
+        max-width: 600px;
+        transform: translateY(-100px);
+    }
+
+    .header-info h1 {
+        font-size: 30px;
+    }
+
+    .title{
+        width: 300px;
+        margin:20px;
+    }
+
+    .head-btn {
+        width: 120px;
+        height: 40px;
+        font-size: 12px;
+    }
+
+    .feature-container p {
+        font-size: 16px;
+    }
+
+    .feature-container h2 {
+        font-size: 20px;
+    }
+
+    .banner-img {
+        max-width: 200px;
+    }
+
+    main h1 {
+        font-size: 30px;
+    }
+
+    .line-chart-img {
+        max-width: 150px;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .nav-profile {
+        flex-direction: column;
+    }
+    .beta-btn{
+        transform: scale(0.8);
+        margin-bottom: -10px;
+    }
+}
+
+@media(max-width:1010px){
+    .grid-container{
+        grid-template-areas:
+        "box1 box2"
+        "box1 box3"
+        "box4 box4";
+        grid-template-rows: 200px 300px 200px;
+    }
+}
+
+/* very small screens: stack action buttons and remove large gaps */
+@media (max-width: 420px){
+    .btn-container{
+        flex-direction: column;
+        gap: 12px;
+        align-items: center;
+    }
+
+    /* make the beta and primary buttons narrower on very small devices */
+    .beta-btn,
+    .head-btn{
+        width: 140px;
+    }
+}
+
+@media(max-width:520px){
+    .grid-container{
+        display: flex;
+        flex-direction: column;
+    }
+    main{
+        padding: 0px 10px;
+    }
 }
